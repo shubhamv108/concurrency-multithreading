@@ -52,7 +52,7 @@ https://www.geeksforgeeks.org/java-lang-process-class-java/
 - https://www.geeksforgeeks.org/difference-between-operating-system-and-kernel/?ref=rp
 
 
-#### Concurrency vs Parallelism
+#### Concurrency vs Parallelism (ToDo)
 
 - genuine simultaneous execution | appearence of simultaneous execution (by interleaving of processes in time)
 
