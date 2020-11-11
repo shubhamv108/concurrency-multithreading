@@ -14,31 +14,31 @@ public class ProducerConsumer {
     }
 
     void produce(Object object) {
-        synchronized (messageQueue) {
+        synchronized (this) {
             if (messageQueue.size() == messageQueueSize) {
                 try {
-                    messageQueue.wait();
+                    wait();
                 } catch (InterruptedException ex) {
                     System.out.println(ex);
                 }
             }
             messageQueue.offer(object);
-            messageQueue.notifyAll();
+            notifyAll();
         }
     }
 
     void consume() {
         while (true) {
-            synchronized (messageQueue) {
+            synchronized (this) {
                 if (messageQueue.isEmpty()) {
                     try {
-                        messageQueue.wait();
+                        wait();
                     } catch (InterruptedException ex) {
                         System.out.println(ex);
                     }
                 }
                 System.out.println(messageQueue.poll().toString());
-                messageQueue.notifyAll();
+                notifyAll();
             }
         }
     }
