@@ -1,23 +1,20 @@
 package multithreading;
 
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.locks.ReentrantLock;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
 
-/**
- * Re-implement using shared read lock & exclusive write lock
- */
-public class QueuedLockOnObject {
+public class ReadWriteLockDemo {
 
-    private final ConcurrentHashMap<String, ReentrantLock> locks = new ConcurrentHashMap();
+    private final ConcurrentHashMap<String, ReadWriteLock> locks = new ConcurrentHashMap();
 
-    public static QueuedLockOnObject getInstance() {
-        return SingletonHolder.INSTANCE;
+    public static ReadWriteLockDemo getInstance() {
+        return ReadWriteLockDemo.SingletonHolder.INSTANCE;
     }
     private static final class SingletonHolder {
-        private static final QueuedLockOnObject INSTANCE = new QueuedLockOnObject();
+        private static final ReadWriteLockDemo INSTANCE = new ReadWriteLockDemo();
     }
 
-    public void doTransaction(final Account account, final Double amount) {
+    public void doTransaction(final ReadWriteLockDemo.Account account, final Double amount) {
         try {
             this.getLock(account.number).lock();
             System.out.println(String.format("Executing Transaction for Account: %s Amount: ", account.number, amount));
@@ -25,18 +22,31 @@ public class QueuedLockOnObject {
             account.balance += amount;
             System.out.println(String.format("After balance for Account: %s = %s", account.number, account.balance));
             System.out.println(String.format("Executed Transaction for Account: %s Amount: %s", account.number, amount));
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         } finally {
             this.getLock(account.number).unlock();
         }
     }
 
-    private ReentrantLock getLock(final String accountNumber) {
+    public void getBalance(final ReadWriteLockDemo.Account account) {
+        try {
+            this.getLock(account.number).RLock();
+            System.out.println(String.format("balance for Account: %s = %s", account.number, account.balance));
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } finally {
+            this.getLock(account.number).RUnlock();
+        }
+    }
+
+    private ReadWriteLock getLock(final String accountNumber) {
         var lock = this.locks.get(accountNumber);
         if (lock == null) {
             synchronized (accountNumber) {
                 lock = locks.get(accountNumber);
                 if (lock == null) {
-                    this.locks.put(accountNumber, lock = new ReentrantLock());
+                    this.locks.put(accountNumber, lock = new ReadWriteLock());
                 }
             }
         }
@@ -45,13 +55,23 @@ public class QueuedLockOnObject {
 
 
     public static void main(String[] args) throws InterruptedException {
-        QueuedLockOnObject onObject = QueuedLockOnObject.getInstance();
+        var onObject = ReadWriteLockDemo.getInstance();
 
-        Account account1 = new Account("1");
-        Account account2 = new Account("2");
-        Account account3 = new Account("3");
-        Account account4 = new Account("4");
+       Account account1 = new Account("1");
+       Account account2 = new Account("2");
+       Account account3 = new Account("3");
+       Account account4 = new Account("4");
 
+        Thread readAccount1 = new Thread(
+                () -> {
+                    int i = 0;
+                    while (i++ < 100) {
+                        onObject.getBalance(account1);
+                    }
+                }
+        );
+
+        readAccount1.start();
         Thread thread1Account1 = new Thread(() -> onObject.doTransaction(account1, 3.0));
         Thread thread2Account1 = new Thread(() -> onObject.doTransaction(account1, -2.0));
         Thread thread3Account1 = new Thread(() -> onObject.doTransaction(account1, 10.0));
@@ -110,5 +130,3 @@ public class QueuedLockOnObject {
     }
 
 }
-
-

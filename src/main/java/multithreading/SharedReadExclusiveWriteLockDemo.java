@@ -2,12 +2,8 @@ package multithreading;
 
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.locks.ReadWriteLock;
-import java.util.concurrent.locks.ReentrantLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
-/**
- * Re-implement using shared read lock & exclusive write lock
- */
 public class SharedReadExclusiveWriteLockDemo {
 
     private final ConcurrentHashMap<String, ReadWriteLock> locks = new ConcurrentHashMap();
