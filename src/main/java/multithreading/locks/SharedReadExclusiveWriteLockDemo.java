@@ -1,42 +1,44 @@
-package multithreading;
+package multithreading.locks;
 
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
-public class ReadWriteLockDemo {
+public class SharedReadExclusiveWriteLockDemo {
 
+    /**
+     * 1) Reimplement with eviction policy (Last Accessed time)
+     * 2) Then move to distributed lock
+     */
     private final ConcurrentHashMap<String, ReadWriteLock> locks = new ConcurrentHashMap();
 
-    public static ReadWriteLockDemo getInstance() {
-        return ReadWriteLockDemo.SingletonHolder.INSTANCE;
+    private SharedReadExclusiveWriteLockDemo() {}
+    public static final SharedReadExclusiveWriteLockDemo getInstance() {
+        return SingletonHolder.INSTANCE;
     }
     private static final class SingletonHolder {
-        private static final ReadWriteLockDemo INSTANCE = new ReadWriteLockDemo();
+        private static final SharedReadExclusiveWriteLockDemo INSTANCE = new SharedReadExclusiveWriteLockDemo();
     }
 
-    public void doTransaction(final ReadWriteLockDemo.Account account, final Double amount) {
+    public void doTransaction(final Account account, final Double amount) {
         try {
-            this.getLock(account.number).lock();
+            this.getLock(account.number).writeLock().lock();
             System.out.println(String.format("Executing Transaction for Account: %s Amount: ", account.number, amount));
             System.out.println(String.format("Before balance for Account: %s = %s", account.number, account.balance));
             account.balance += amount;
             System.out.println(String.format("After balance for Account: %s = %s", account.number, account.balance));
             System.out.println(String.format("Executed Transaction for Account: %s Amount: %s", account.number, amount));
-        } catch (InterruptedException e) {
-            e.printStackTrace();
         } finally {
-            this.getLock(account.number).unlock();
+            this.getLock(account.number).writeLock().unlock();
         }
     }
 
-    public void getBalance(final ReadWriteLockDemo.Account account) {
+    public void getBalance(final Account account) {
         try {
-            this.getLock(account.number).RLock();
+            this.getLock(account.number).readLock().lock();
             System.out.println(String.format("balance for Account: %s = %s", account.number, account.balance));
-        } catch (InterruptedException e) {
-            e.printStackTrace();
         } finally {
-            this.getLock(account.number).RUnlock();
+            this.getLock(account.number).readLock().unlock();
         }
     }
 
@@ -46,7 +48,7 @@ public class ReadWriteLockDemo {
             synchronized (accountNumber) {
                 lock = locks.get(accountNumber);
                 if (lock == null) {
-                    this.locks.put(accountNumber, lock = new ReadWriteLock());
+                    this.locks.put(accountNumber, lock = new ReentrantReadWriteLock());
                 }
             }
         }
@@ -55,12 +57,12 @@ public class ReadWriteLockDemo {
 
 
     public static void main(String[] args) throws InterruptedException {
-        var onObject = ReadWriteLockDemo.getInstance();
+        SharedReadExclusiveWriteLockDemo onObject = SharedReadExclusiveWriteLockDemo.getInstance();
 
-       Account account1 = new Account("1");
-       Account account2 = new Account("2");
-       Account account3 = new Account("3");
-       Account account4 = new Account("4");
+        Account account1 = new Account("1");
+        Account account2 = new Account("2");
+        Account account3 = new Account("3");
+        Account account4 = new Account("4");
 
         Thread readAccount1 = new Thread(
                 () -> {
@@ -130,3 +132,5 @@ public class ReadWriteLockDemo {
     }
 
 }
+
+

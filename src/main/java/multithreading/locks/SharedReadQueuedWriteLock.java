@@ -1,4 +1,4 @@
-package multithreading;
+package multithreading.locks;
 
 import java.util.concurrent.locks.AbstractQueuedSynchronizer;
 
