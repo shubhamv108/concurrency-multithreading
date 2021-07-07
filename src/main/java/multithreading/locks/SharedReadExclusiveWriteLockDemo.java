@@ -4,6 +4,9 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
+/**
+ * Pessimistic Concurrency Control
+ */
 public class SharedReadExclusiveWriteLockDemo {
 
     /**

@@ -56,3 +56,8 @@ https://www.geeksforgeeks.org/java-lang-process-class-java/
 
 - genuine simultaneous execution | appearence of simultaneous execution (by interleaving of processes in time)
 
+
+#### Flase Sharing
+- https://dzone.com/articles/what-false-sharing-is-and-how-jvm-prevents-it
+- https://medium.com/@rukavitsya/what-is-false-sharing-and-how-jvm-prevents-it-82a4ed27da84
+
