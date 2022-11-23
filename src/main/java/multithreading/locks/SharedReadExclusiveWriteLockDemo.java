@@ -1,6 +1,9 @@
 package multithreading.locks;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
@@ -31,6 +34,8 @@ public class SharedReadExclusiveWriteLockDemo {
             account.balance += amount;
             System.out.println(String.format("After balance for Account: %s = %s", account.number, account.balance));
             System.out.println(String.format("Executed Transaction for Account: %s Amount: %s", account.number, amount));
+            Condition condition = this.getLock(account.number).writeLock().newCondition();
+            condition.signalAll();
         } finally {
             this.getLock(account.number).writeLock().unlock();
         }
@@ -56,6 +61,23 @@ public class SharedReadExclusiveWriteLockDemo {
             }
         }
         return lock;
+    }
+
+    private Collection<ReadWriteLock> getLocks(final String... accountNumbers) {
+        Collection<ReadWriteLock> locks = new ArrayList<>();
+        for (String accountNumber : accountNumbers) {
+            var lock = this.locks.get(accountNumber);
+            if (lock == null) {
+                synchronized (accountNumber) {
+                    lock = this.locks.get(accountNumber);
+                    if (lock == null) {
+                        this.locks.put(accountNumber, lock = new ReentrantReadWriteLock());
+                    }
+                    locks.add(lock);
+                }
+            }
+        }
+        return locks;
     }
 
 

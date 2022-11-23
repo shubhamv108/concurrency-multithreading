@@ -112,7 +112,7 @@ public class ThreadPool {
     }
 
     public static void main(String[] args) throws InterruptedException {
-        ThreadPool pool = new ThreadPool(2, 5, -1, null, 1, null);
+        ThreadPool pool = new ThreadPool(0, 5, -1, null, 1, null);
         pool.execute(new Runnable() {
             @Override
             public void run() {
