@@ -21,6 +21,7 @@ public class NativeProcessDemo {
     static class RuntimeExecDemo {
         int createAndExecuteProcess() throws IOException, InterruptedException {
             Process process = Runtime.getRuntime().exec("gedit");
+            System.out.println("PID; " + process.pid());
             Thread.sleep(1000);
 //            process.destroy();
             Thread.sleep(1000);

@@ -5,65 +5,53 @@ import java.util.concurrent.TimeoutException;
 import java.util.concurrent.BrokenBarrierException;
 import java.util.concurrent.CyclicBarrier;
 
-class Computation1 implements Runnable
-{
+class Computation1 implements Runnable {
     public static int product = 0;
-    public void run()
-    {
+    public void run() {
         product = 2 * 3;
-        try
-        {
+        try {
             Tester.newBarrier.await();
         }
-        catch (InterruptedException | BrokenBarrierException e)
-        {
+        catch (InterruptedException | BrokenBarrierException e) {
             e.printStackTrace();
         }
     }
 }
 
-class Computation2 implements Runnable
-{
+class Computation2 implements Runnable {
     public static int sum = 0;
-    public void run()
-    {
+    public void run() {
         // check if newBarrier is broken or not
         System.out.println("Is the barrier broken? - " + Tester.newBarrier.isBroken());
         sum = 10 + 20;
-        try
-        {
+        try {
             Tester.newBarrier.await(3000, TimeUnit.MILLISECONDS);
 
             // number of parties waiting at the barrier
             System.out.println("Number of parties waiting at the barrier "+
                     "at this point = " + Tester.newBarrier.getNumberWaiting());
         }
-        catch (InterruptedException | BrokenBarrierException e)
-        {
+        catch (InterruptedException | BrokenBarrierException e) {
             e.printStackTrace();
         }
-        catch (TimeoutException e)
-        {
+        catch (TimeoutException e) {
             e.printStackTrace();
         }
     }
 }
 
 
-public class Tester implements Runnable
-{
+public class Tester implements Runnable {
     public static CyclicBarrier newBarrier = new CyclicBarrier(3);
 
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) {
         // parent thread
         Tester test = new Tester();
 
         Thread t1 = new Thread(test);
         t1.start();
     }
-    public void run()
-    {
+    public void run() {
         System.out.println("Number of parties required to trip the barrier = "+
                 newBarrier.getParties());
         System.out.println("Sum of product and sum = " + (Computation1.product +
@@ -81,12 +69,10 @@ public class Tester implements Runnable
         t1.start();
         t2.start();
 
-        try
-        {
+        try {
             Tester.newBarrier.await();
         }
-        catch (InterruptedException | BrokenBarrierException e)
-        {
+        catch (InterruptedException | BrokenBarrierException e) {
             e.printStackTrace();
         }
 

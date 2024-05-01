@@ -1,3 +1,6 @@
+## Thread
+- Lightweight process responsible for executing a task
+
 #### Process vs Thread
 - Process is isolated. | Threads share memory.
 - Process switching uses interface in operating system | Thread switching does not require to call a operating system and cause an interrupt to the kernel.
@@ -25,7 +28,7 @@
 - Register contents
 - Thread Priority
 - Pointer to process that created this thread
-- Pointers to other threadds that were created by this thread
+- Pointers to other threads that were created by this thread
 
 ** https://www.geeksforgeeks.org/thread-control-block-in-operating-system/?ref=rp
 
@@ -53,11 +56,28 @@ https://www.geeksforgeeks.org/java-lang-process-class-java/
 
 
 #### Concurrency vs Parallelism (ToDo)
-
+##### Parallel
+- multiple things at same time
+##### Parallel
+- multiple things together but not same time
 - genuine simultaneous execution | appearence of simultaneous execution (by interleaving of processes in time)
 
 
-#### Flase Sharing
+#### False Sharing
 - https://dzone.com/articles/what-false-sharing-is-and-how-jvm-prevents-it
 - https://medium.com/@rukavitsya/what-is-false-sharing-and-how-jvm-prevents-it-82a4ed27da84
+
+## RaceCondition
+a software error that occurs when multiple threads access a shared resource
+
+## InterProcess Communication
+- coordinate and synchronize between processes 
+- ways
+  1. Pipes
+  2. Signals
+  3. Buffers: Message queues etc
+  4. Sockets
+
+## Shared memory
+- Common memory region from PCB
 
