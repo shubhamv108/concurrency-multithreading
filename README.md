@@ -34,9 +34,7 @@
 
 
 #### Address Space
-valid addresses in memory that are avilable for process.
-
-
+valid addresses in memory that are available for process.
 
 
 
@@ -58,17 +56,27 @@ https://www.geeksforgeeks.org/java-lang-process-class-java/
 #### Concurrency vs Parallelism (ToDo)
 ##### Parallel
 - multiple things at same time
-##### Parallel
-- multiple things together but not same time
-- genuine simultaneous execution | appearence of simultaneous execution (by interleaving of processes in time)
-
+- genuine simultaneous execution
+##### Concurrency
+- multiple things together but not same time 
+- appearance of simultaneous execution (by interleaving of processes in time)
 
 #### False Sharing
 - https://dzone.com/articles/what-false-sharing-is-and-how-jvm-prevents-it
 - https://medium.com/@rukavitsya/what-is-false-sharing-and-how-jvm-prevents-it-82a4ed27da84
 
-## RaceCondition
+## Critical Section
+a piece of code that accesses a shared resource, usually a variable or data structure.
+
+## Race Condition
 a software error that occurs when multiple threads access a shared resource
+
+## Intermediate Program
+- Consists of 1 or * race conditions;
+- the o/p of program is not <b>deterministic</b> & varies from run to run.
+
+## Mutual Exclusion
+no two processes can exist in the critical section at any given point of time
 
 ## InterProcess Communication
 - coordinate and synchronize between processes 
@@ -81,3 +89,8 @@ a software error that occurs when multiple threads access a shared resource
 ## Shared memory
 - Common memory region from PCB
 
+## AssemblerInstructions
+#### ldsub
+load/store unsigned instruction byte (locked version of atomic exchange)
+#### xchg
+atomic exchange
