@@ -14,8 +14,8 @@ public class CustomThreadFactory implements ThreadFactory {
     private static final int DEFAULT_STACK_SIZE = 0;
 
     public CustomThreadFactory() {
-        this.threadGroup = System.getSecurityManager() != null ?
-                System.getSecurityManager().getThreadGroup() : Thread.currentThread().getThreadGroup();
+//        this.threadGroup = System.getSecurityManager() != null ?
+//                System.getSecurityManager().getThreadGroup() : Thread.currentThread().getThreadGroup();
         this.threadNamePrefix = "pool-" + poolNumber.getAndIncrement() + "-thread-";
     }
 
