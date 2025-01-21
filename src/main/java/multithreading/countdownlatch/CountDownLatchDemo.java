@@ -19,7 +19,7 @@ public class CountDownLatchDemo {
         first.start();
         second.start();
         third.start();
-        fourth.start();
+        fourth.start(); 
 
         latch.await(); // blocks until countdown == 0
         System.out.println(Thread.currentThread().getName() + " has finished");

@@ -1,6 +1,6 @@
 package processes.locks;
 
-import utils.FileUtils;
+import utils.files.FileUtils;
 
 import java.io.File;
 import java.io.IOException;
