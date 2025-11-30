@@ -54,13 +54,13 @@ public class FileReaderWriterWithBufferAndBackpressure {
         if (!op.exists())
             Files.createFile(op.toPath());
 
-        service.scheduleAtFixedRate(() -> {
+        service.scheduleWithFixedDelay(() -> {
             try {
                 write(outputFilePath);
             } catch (FileNotFoundException e) {
                 throw new RuntimeException(e);
             }
-        }, 0, 10, TimeUnit.SECONDS);
+        }, 0, 1, TimeUnit.SECONDS);
     }
 
     public void write(String outputFilePath) throws FileNotFoundException {
