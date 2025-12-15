@@ -1,4 +1,4 @@
-package multithreading.consumerproducer;
+package code.shubham.multithreading.consumerproducer;
 
 import java.util.LinkedList;
 import java.util.Queue;

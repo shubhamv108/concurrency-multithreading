@@ -1,4 +1,4 @@
-package multithreading.forkjoinpool;
+package code.shubham.multithreading.forkjoinpool;
 
 import java.util.ArrayList;
 import java.util.Arrays;

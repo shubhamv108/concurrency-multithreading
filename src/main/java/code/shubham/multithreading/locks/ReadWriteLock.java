@@ -1,4 +1,4 @@
-package multithreading.locks;
+package code.shubham.multithreading.locks;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -1,4 +1,4 @@
-package multithreading.waitgroup;
+package code.shubham.multithreading.waitgroup;
 
 import java.util.concurrent.Phaser;
 

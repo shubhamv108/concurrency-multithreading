@@ -1,4 +1,4 @@
-package multithreading;
+package code.shubham.multithreading;
 
 public class Counter implements Runnable {
 

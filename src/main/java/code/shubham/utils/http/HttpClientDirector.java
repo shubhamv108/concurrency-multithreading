@@ -1,4 +1,4 @@
-package utils.http;
+package code.shubham.utils.http;
 
 import com.google.gson.Gson;
 

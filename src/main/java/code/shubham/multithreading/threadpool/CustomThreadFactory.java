@@ -1,4 +1,4 @@
-package multithreading.threadpool;
+package code.shubham.multithreading.threadpool;
 
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.atomic.AtomicInteger;

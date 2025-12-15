@@ -1,4 +1,4 @@
-package multithreading.forkjoinpool;
+package code.shubham.multithreading.forkjoinpool;
 
 import java.util.concurrent.ForkJoinPool;
 import java.util.function.Predicate;

@@ -1,4 +1,4 @@
-package multithreading.locks;
+package code.shubham.multithreading.locks;
 
 import java.util.Stack;
 import java.util.concurrent.locks.Condition;

@@ -1,4 +1,4 @@
-package multithreading.cyclicbarrier;
+package code.shubham.multithreading.cyclicbarrier;
 
 import java.util.concurrent.CyclicBarrier;
 

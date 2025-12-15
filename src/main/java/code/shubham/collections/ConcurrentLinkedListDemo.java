@@ -1,4 +1,4 @@
-package collections;
+package code.shubham.collections;
 
 import java.util.concurrent.ConcurrentLinkedDeque;
 

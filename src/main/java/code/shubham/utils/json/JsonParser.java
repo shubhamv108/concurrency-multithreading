@@ -1,4 +1,4 @@
-package utils.json;
+package code.shubham.utils.json;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;

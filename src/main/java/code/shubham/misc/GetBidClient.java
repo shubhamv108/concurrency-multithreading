@@ -1,6 +1,6 @@
-package misc;
+package code.shubham.misc;
 
-import utils.json.JsonParser;
+import code.shubham.utils.json.JsonParser;
 
 import java.net.URI;
 import java.net.http.HttpClient;

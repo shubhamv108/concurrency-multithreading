@@ -1,4 +1,4 @@
-package multithreading.threadpool;
+package code.shubham.multithreading.threadpool;
 
 @FunctionalInterface
 public interface CommandRejectionHandler {

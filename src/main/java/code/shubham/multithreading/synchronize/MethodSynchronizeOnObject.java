@@ -1,4 +1,4 @@
-package multithreading.synchronize;
+package code.shubham.multithreading.synchronize;
 
 import java.util.HashSet;
 import java.util.Set;

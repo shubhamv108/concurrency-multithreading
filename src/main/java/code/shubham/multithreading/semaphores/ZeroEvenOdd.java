@@ -1,4 +1,4 @@
-package multithreading.semaphores;
+package code.shubham.multithreading.semaphores;
 
 import java.util.concurrent.Semaphore;
 import java.util.function.IntConsumer;

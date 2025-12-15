@@ -62,8 +62,9 @@ https://www.geeksforgeeks.org/java-lang-process-class-java/
 - appearance of simultaneous execution (by interleaving of processes in time)
 
 #### False Sharing
-- https://dzone.com/articles/what-false-sharing-is-and-how-jvm-prevents-it
+- [DZone](https://dzone.com/articles/what-false-sharing-is-and-how-jvm-prevents-it)
 - https://medium.com/@rukavitsya/what-is-false-sharing-and-how-jvm-prevents-it-82a4ed27da84
+- [Jenkov](https://jenkov.com/tutorials/java-concurrency/false-sharing.html)
 
 ## Critical Section
 a piece of code that accesses a shared resource, usually a variable or data structure.
@@ -94,3 +95,40 @@ no two processes can exist in the critical section at any given point of time
 load/store unsigned instruction byte (locked version of atomic exchange)
 #### xchg
 atomic exchange
+
+# Concurrency models
+1. Parallel Workers
+    - Disadvantages
+        a. Complexity with Shared state - race conditions, deadlock, non blocking not easy implement
+        b. Stateless (worker which re-reads state every time is needed, which can be slow)
+        c. Non-deterministic job ordering
+2. Assembly Line
+    - Reactive event driven systems
+    - Actors vs Channels
+3. Functional Parallelism
+
+## Mutex
+Only thread access resource at a time.
+
+## HappensBefore
+Guarntees 1 operation effects are visible to another.
+
+## Read/Write Lock
+Multiple readers allowed; writes get exclusive access to resource
+
+## Future/Promise
+Promise sets value; future retrieves it from another
+
+## CAS
+Atomic operation; update memory only value matches expectations
+
+## Atomics
+Variables with in divisible operation, no interference from another thread.
+
+## Single Writer Principle
+- One thread writes multiple thread reades. 
+- Eliminates race conditions; simplifies concurrency;
+- Eliminates lock contention for writes.
+
+
+

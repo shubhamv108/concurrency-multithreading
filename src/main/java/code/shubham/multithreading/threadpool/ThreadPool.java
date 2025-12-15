@@ -1,4 +1,4 @@
-package multithreading.threadpool;
+package code.shubham.multithreading.threadpool;
 
 import java.util.List;
 import java.util.Queue;
@@ -54,7 +54,7 @@ public class ThreadPool {
         boolean isRejected;
         synchronized(workQueue) {
             if (workers.size() < corePoolSize || ((isRejected = !workQueue.offer(command)) && workers.size() < maximumPoolSize)) {
-                Thread thread = this.threadFactory.newThread(new multithreading.threadpool.ThreadPool.Worker(command));
+                Thread thread = this.threadFactory.newThread(new ThreadPool.Worker(command));
                 this.workers.add(thread);
                 thread.start();
                 isRejected = false;

@@ -1,4 +1,4 @@
-package multithreading.dinningphilospherproblem;
+package code.shubham.multithreading.dinningphilospherproblem;
 
 public class Philosopher implements Runnable {
     private Object leftFork;

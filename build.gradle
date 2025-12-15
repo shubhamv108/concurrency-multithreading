@@ -1,16 +1,57 @@
 plugins {
     id 'java'
+    id 'application'
 }
 
-group 'demo'
+group 'code.shbham'
 version '1.0-SNAPSHOT'
 
-sourceCompatibility = '21'
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+application {
+    applicationDefaultJvmArgs = [
+            '-XX:-RestrictContended',
+            '-XX:ContendedPaddingWidth=64'
+    ]
+}
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
-//    testCompile group: 'junit', name: 'junit', version: '4.12'
+    implementation (
+        'com.google.code.gson:gson:2.8.9',
+        'org.jctools:jctools-core:4.0.1',
+        'org.openjdk.jmh:jmh-core:1.37'
+    )
+
+    annotationProcessor(
+        'org.openjdk.jmh:jmh-generator-annprocess:1.37'
+    )
+
+    testImplementation platform('org.junit:junit-bom:5.10.1')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+}
+
+test {
+    useJUnitPlatform()
+    maxParallelForks = Runtime.runtime.availableProcessors().intdiv(2) ?: 1
+
+    testLogging {
+        events "passed", "skipped", "failed"
+        showStandardStreams = false
+    }
+}
+
+tasks.withType(Test) {
+    jvmArgs '-XX:-RestrictContended', '-XX:ContendedPaddingWidth=64'
+}
+
+tasks.withType(JavaCompile) {
+    options.compilerArgs += ['--add-exports', 'java.base/jdk.internal.vm.annotation=ALL-UNNAMED']
 }

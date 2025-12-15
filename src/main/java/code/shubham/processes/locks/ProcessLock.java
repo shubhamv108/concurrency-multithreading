@@ -1,6 +1,6 @@
-package processes.locks;
+package code.shubham.processes.locks;
 
-import utils.files.FileUtils;
+import code.shubham.utils.files.FileUtils;
 
 import java.io.File;
 import java.io.IOException;
