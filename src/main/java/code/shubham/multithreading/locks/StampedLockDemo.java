@@ -30,7 +30,7 @@ public class StampedLockDemo {
 
     public int readWithOptimisticLock() {
         long stamp = lock.tryOptimisticRead();
-        if(!lock.validate(stamp)) {
+        if (!lock.validate(stamp)) {
             stamp = lock.readLock();
             try {
                 return count;
